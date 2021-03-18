@@ -1,0 +1,85 @@
+<html>
+<body>
+<style>
+  .main{
+    width: 500px;
+    overflow:auto;
+    height:208px;  /* 设置固定高度 */
+  }
+  table {
+    table-layout: fixed;
+    width: 200px; /* 固定宽度 */
+    border-collapse:collapse;
+  }
+  td, th {
+    /* 设置td,th宽度高度 */
+    border:1px solid gray;
+    width:100px;
+    height:50px;
+    word-break:break-all;
+    background-color:white;
+  }
+  .fixed {
+    position:sticky;
+    left:0; /* 首行永远固定在左侧 */
+    z-index:1;
+  }
+  thead tr th {
+    position:sticky;
+    top:0; /* 列首永远固定在头部  */
+  }
+  th:first-child{
+    z-index:2;
+  }
+</style>
+<div class="main">
+  <table width="100%" border="1">
+    <col align="left" />
+    <col align="left" />
+    <col align="right" />
+    <thead>
+    <tr>
+      <th class="fixed">Type</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th>ISBN</th>
+      <th>Author</th>
+      <th>Publish</th>
+    </tr>
+    </thead>
+    <tr>
+      <td class="fixed">计算机类</td>
+      <td>My first HTML</td>
+      <td>$53</td>
+      <td>2489604</td>
+      <td>Tony Tmds</td>
+      <td>e-book</td>
+    </tr>
+    <tr>
+      <td class="fixed">计算机类</td>
+      <td>My first CSS</td>
+      <td>$47</td>
+      <td>2489610</td>
+      <td>Bob Cons</td>
+      <td>e-book</td>
+    </tr>
+    <tr>
+      <td class="fixed">2489604</td>
+      <td>My first CSS</td>
+      <td>$47</td>
+      <td>2489604</td>
+      <td>My first CSS</td>
+      <td>$47</td>
+    </tr>
+    <tr>
+      <td class="fixed">2489604</td>
+      <td>My first CSS</td>
+      <td>$47</td>
+      <td>2489604</td>
+      <td>My first CSS</td>
+      <td>$47</td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
