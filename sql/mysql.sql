@@ -16,6 +16,10 @@ CREATE TABLE `topic_collect` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 --清空表
 truncate table `topic_collect`;
+--插入数据
+INSERT INTO ads_report_product_sales 
+(cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email)
+VALUES ('0343454','toy land','435 Any Street','New York','NY','3333','USA',NULL, NULL);
 --更改表名
 alter table `topic_collect` rename to `topic_collects`;
 --查询元数据
