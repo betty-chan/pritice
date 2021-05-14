@@ -14,12 +14,6 @@ CREATE TABLE `topic_collect` (
   `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
---清空表
-truncate table `topic_collect`;
---插入数据
-INSERT INTO ads_report_product_sales 
-(cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email)
-VALUES ('0343454','toy land','435 Any Street','New York','NY','3333','USA',NULL, NULL);
 --更改表名
 alter table `topic_collect` rename to `topic_collects`;
 --查询元数据
@@ -37,6 +31,16 @@ INNER JOIN TABLES T ON C.TABLE_SCHEMA = T.TABLE_SCHEMA AND C.TABLE_NAME = T.TABL
 WHERE T.TABLE_SCHEMA = 'xboot' and T.TABLE_NAME='t_user'
 --导出数据
 mysqldump -h[远程数据库ip] -P[数据库端口号] -u[用户名] -p[密码] default-character-set="数据库编码" >db.sql;
+--清空表
+truncate table `topic_collect`;
+--插入数据
+INSERT INTO ads_report_product_sales 
+(cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email)
+VALUES ('0343454','toy land','435 Any Street','New York','NY','3333','USA',NULL, NULL);
+--删除数据
+DELETE FROM runoob_tbl WHERE runoob_id=3
+--更新数据
+UPDATE runoob_tbl SET runoob_title = REPLACE(runoob_title, 'C++', 'Python'), runoob_id = 4 where runoob_id = 3;
 
 
 --查询日期
@@ -57,3 +61,11 @@ select
   where ardr.bizdate > "2021-04-21"
   and ardr.bizdate < "2021-04-29"
 group by name, x
+--正则
+select * from `rule` WHERE user_name REGEXP '[a-z]+';
+--查询数据量
+select count(*) as sum from `rule`;
+--查询去重
+select DISTINCT user_name from `rule` WHERE user_name REGEXP '[a-z]+';
+--IN和NO IN的使用
+select count(user_name), user_name from `rule` WHERE user_name REGEXP '[a-z]+' and user_name NOT IN ("admin","chenxin")  GROUP BY user_name;
