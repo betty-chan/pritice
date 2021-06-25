@@ -15,7 +15,9 @@ CREATE TABLE `topic_collect` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 --更改表名
-alter table `topic_collect` rename to `topic_collects`;
+ALTER TABLE `topic_collect` rename to `topic_collects`;
+--更改表-增加字段
+ALTER TABLE `t_permission` ADD COLUMN resource_type VARCHAR(255) DEFAULT NULL COMMENT '资源类型';
 --查询元数据
 USE information_schema;
 SELECT
@@ -69,3 +71,5 @@ select count(*) as sum from `rule`;
 select DISTINCT user_name from `rule` WHERE user_name REGEXP '[a-z]+';
 --IN和NO IN的使用
 select count(user_name), user_name from `rule` WHERE user_name REGEXP '[a-z]+' and user_name NOT IN ("admin","chenxin")  GROUP BY user_name;
+--模糊查询
+select * from `rule` WHERE user_name like concat('%','122','%');

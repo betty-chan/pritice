@@ -134,3 +134,26 @@ function BFSAndLevel(root) {
         }
     }
 }
+//数组转化成层级树
+export const arrayToLevelTree = function (arr) {
+    let tree = []
+    if (!Array.isArray(arr)) {
+        return tree
+    }
+    arr.forEach(item => {
+        delete item.children;
+    });
+    let map = {};
+    arr.forEach(item => {
+        map[item.cat_id] = item;
+    });
+    arr.forEach(item => {
+        let parent = map[item.parent_id];
+        if (parent) {
+            (parent.children || (parent.children = [])).push(item);
+        } else {
+            tree.push(item);
+        }
+    });
+    return tree;
+}
