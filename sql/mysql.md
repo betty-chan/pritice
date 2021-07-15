@@ -1,3 +1,5 @@
+## 操作
+```sql
 --创建数据库
 CREATE DATABASE IF NOT EXISTS learn DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 --删除数据库
@@ -43,10 +45,18 @@ VALUES ('0343454','toy land','435 Any Street','New York','NY','3333','USA',NULL,
 DELETE FROM runoob_tbl WHERE runoob_id=3
 --更新数据
 UPDATE runoob_tbl SET runoob_title = REPLACE(runoob_title, 'C++', 'Python'), runoob_id = 4 where runoob_id = 3;
+--查询进程
+show full processlist;
+--停止进程
+kill 82547;
+```
 
-
---查询日期
+## 查询
+```sql
+--查询日期，写法一
 select * from dws_adorawe_spu_daily T where T.track_date between '2021-03-21 00:00:00' and '2021-03-28 23:59:59';
+--查询日期，写法二
+select * from dws_adorawe_spu_daily T where T.track_date >= '2021-03-21 00:00:00' and T.track_date <= '2021-03-28 23:59:59';
 --按周分组，返回周一
 select 
   vendor as name, IFNULL(roi,0) as y,
@@ -63,7 +73,7 @@ select
   where ardr.bizdate > "2021-04-21"
   and ardr.bizdate < "2021-04-29"
 group by name, x
---正则
+--使用正则
 select * from `rule` WHERE user_name REGEXP '[a-z]+';
 --查询数据量
 select count(*) as sum from `rule`;
@@ -71,5 +81,8 @@ select count(*) as sum from `rule`;
 select DISTINCT user_name from `rule` WHERE user_name REGEXP '[a-z]+';
 --IN和NO IN的使用
 select count(user_name), user_name from `rule` WHERE user_name REGEXP '[a-z]+' and user_name NOT IN ("admin","chenxin")  GROUP BY user_name;
---模糊查询
-select * from `rule` WHERE user_name like concat('%','122','%');
+--模糊查询，包含和不包含
+select * from `rule` WHERE user_name like concat('%','122','%') and user_name not like concat('%','34','%');
+--根据语句顺序排序
+select sku_code from ads_ops_goods_dim_sku where sku_code in ('XXMX02005015','XXMX02013007','XXMT00375004','XXMX01985003') order by field(sku_code,'XXMX02005015','XXMX02013007','XXMT00375004','XXMX01985003')
+```
