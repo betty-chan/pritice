@@ -134,7 +134,7 @@ function BFSAndLevel(root) {
         }
     }
 }
-//数组转化成层级树
+//层级列表转化成层级树
 export const arrayToLevelTree = function (arr) {
     let tree = []
     if (!Array.isArray(arr)) {

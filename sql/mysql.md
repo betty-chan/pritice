@@ -20,6 +20,8 @@ CREATE TABLE `topic_collect` (
 ALTER TABLE `topic_collect` rename to `topic_collects`;
 --更改表-增加字段
 ALTER TABLE `t_permission` ADD COLUMN resource_type VARCHAR(255) DEFAULT NULL COMMENT '资源类型';
+--更改表-删除字段
+ALTER TABLE `t_permission` Drop COLUMN resource_type, resource_id, resource_params;
 --查询元数据
 USE information_schema;
 SELECT
