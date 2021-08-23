@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        let md = `
+
+| label         | 请求类型     |     required |  type      |  --   |  --  |
+| ------------ | -------------------------------- |-----------|--------|----|--- |
+| fAreaId  | 大区id,整数类型 |   body    |   true   |integer(int64)  |       |
+| fCaptainTel  | 车长电话 |   body    |   true   |string  |       |
+| fCarsetCaptain  | 车长 |   body    |   true   |string  |       |
+| fCarsetCaptainId  | 车长id,整型 |   body    |   true   |integer(int64)  |       |
+| fCarsetDeputy  | 副车长 |   body    |   true   |string  |       |
+| fCarsetDeputyId  | 副车长id |   body    |   true   |integer(int64)  |       |
+| fCompanyApprove  | 公司特批:有特批,无特批 |   body    |   true   |string  |       |
+| fContractDesc  | 合同说明 |   body    |   false   |string  |       |
+| fContractName  | 合同名称 |   body    |   false   |string  |       |
+| fContractSituation  | 合同情况 |   body    |   true   |string  |       |
+| fCustomerCity  | 城市 |   body    |   false   |string  |       |
+| fCustomerId  | 客户id,整数类型 |   body    |   true   |integer(int64)  |       |
+`
+
+        let table = marked(md);
+        let tableDOM = document.createRange().createContextualFragment(table).firstChild;
+
+        console.log(tableToJson(tableDOM))
+
+        function tableToJson(table) {
+
+            var data = [];
+            var headers = [];
+            for (var i = 0; i < table.rows[0].cells.length; i++) {
+
+                headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
+            }
+            for (var i = 1; i < table.rows.length; i++) {
+
+                var tableRow = table.rows[i];
+                var rowData = {
+                };
+                for (var j = 0; j < tableRow.cells.length; j++) {
+
+                    rowData[headers[j]] = tableRow.cells[j].innerHTML;
+                }
+                data.push(rowData);
+            }
+            return data;
+        }
+    </script>
+</body>
+
+</html>
