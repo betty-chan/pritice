@@ -9,7 +9,6 @@ init();
 function init() {
     camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10);
     camera.position.set(0, 0, cameraRound);
-    camera.lookAt(zeroPoint);
     scene = new THREE.Scene();
     light = new THREE.AmbientLight(0x404040);
     scene.add(light);
@@ -17,9 +16,10 @@ function init() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setAnimationLoop(animation);
-    // var controls = new OrbitControls( camera, renderer.domElement );
     document.body.appendChild(renderer.domElement);
-    document.addEventListener('mousedown', mousedownFun, false);
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enablePan = false;
+    renderer.render(scene, camera);
 }
 function initModal() {
     let mesh;

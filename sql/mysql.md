@@ -85,6 +85,24 @@ select DISTINCT user_name from `rule` WHERE user_name REGEXP '[a-z]+';
 select count(user_name), user_name from `rule` WHERE user_name REGEXP '[a-z]+' and user_name NOT IN ("admin","chenxin")  GROUP BY user_name;
 --模糊查询，包含和不包含
 select * from `rule` WHERE user_name like concat('%','122','%') and user_name not like concat('%','34','%');
---根据语句顺序排序
+--1对多取最新的
+select crowd.id,crowd_name,crowd_desc,custom_field,crowd.create_time,crowd.update_time,crowd.created_by,crowd.period_start_time,crowd.period_end_time,status,pli.push_task_type as pushTaskType, pli.period_end_time as pushEndTime
+from crowd left join push_label_info as pli
+on pli.id =  (
+    select pli_in.id
+    from push_label_info as pli_in
+    where pli_in.crowd_id = crowd.id
+    order by pli_in.create_time desc
+    limit 1
+)
+WHERE crowd.shop_type = 'S'
+```
+
+## 排序
+```sql
+--根据查询语句顺序排序
 select sku_code from ads_ops_goods_dim_sku where sku_code in ('XXMX02005015','XXMX02013007','XXMT00375004','XXMX01985003') order by field(sku_code,'XXMX02005015','XXMX02013007','XXMT00375004','XXMX01985003')
+---根据数值从小到大排序，默认null排后面
+select vendor_name vender from  `config`.role_store_permission rsp
+order by weight is  null, weight asc, vender
 ```
