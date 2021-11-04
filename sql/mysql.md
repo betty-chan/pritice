@@ -96,7 +96,9 @@ on pli.id =  (
     limit 1
 )
 WHERE crowd.shop_type = 'S'
--- 查询排名：rank() over(partition by shop_name,country order by sum(combination_usd) desc)
+-- 查询不并列连续排名：row_number() over(partition by shop_name,country order by sum(combination_usd) desc)
+-- 查询并列不连续排名：rank() over(partition by shop_name,country order by sum(combination_usd) desc)
+-- 查询并列连续排名（默认）：dense_rank() over(partition by shop_name,country order by sum(combination_usd) desc)
 SELECT shop_name,country,
 first_category,
 sum(combination_usd) usd ,
