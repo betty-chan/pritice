@@ -96,10 +96,15 @@ on pli.id =  (
     limit 1
 )
 WHERE crowd.shop_type = 'S'
-```
-
-## 排序
-```sql
+-- 查询排名：rank() over(partition by shop_name,country order by sum(combination_usd) desc)
+SELECT shop_name,country,
+first_category,
+sum(combination_usd) usd ,
+rank() over(partition by shop_name,country order by sum(combination_usd) desc)  as rk 
+FROM `ads_cm_vivaia_first_category_combination`
+where country in ('australia','united states') and opdate >='2021-10-03' and shop_id=1809
+group by shop_name,country,first_category
+order by shop_name,country, rk 
 --根据查询语句顺序排序
 select sku_code from ads_ops_goods_dim_sku where sku_code in ('XXMX02005015','XXMX02013007','XXMT00375004','XXMX01985003') order by field(sku_code,'XXMX02005015','XXMX02013007','XXMT00375004','XXMX01985003')
 ---根据数值从小到大排序，默认null排后面
