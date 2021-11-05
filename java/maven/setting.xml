@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <!-- 本地仓库的位置 -->
+    <localRepository>
+        ${user.home}/.m2/repository
+    </localRepository>
+
+    <pluginGroups></pluginGroups>
+    <proxies></proxies>
+
+    <!-- 私服发布的用户名密码 -->
+    <servers>
+        <server>
+        <id>datacenter-nexus</id>
+        <username>deploy</username>
+        <password>kDheHSURBKmuFFXA</password>
+        </server>
+        <server>
+        <id>datacenter-snapshots</id>
+        <username>deploy</username>
+        <password>kDheHSURBKmuFFXA</password>
+        </server>
+        <server>
+        <id>datacenter-releases</id>
+        <username>deploy</username>
+        <password>kDheHSURBKmuFFXA</password>
+        </server>
+    </servers>
+  
+    <!-- 镜像地址 -->
+    <mirrors>
+        <mirror>
+            <id>datacenter-nexus</id>
+            <name>central repository</name>
+            <url>http://47.112.162.203:8082/nexus/content/groups/public/</url>
+            <mirrorOf>*</mirrorOf>
+        </mirror>
+    </mirrors>
+ 
+    <profiles>
+        <profile>
+            <id>datacenter-nexus</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>1.8</maven.compiler.source>
+                <maven.compiler.target>1.8</maven.compiler.target>
+                <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+            </properties>
+            <repositories>
+                <repository>
+                    <id>datacenter-snapshots</id>
+                    <name>Nexus Release Snapshot Repository</name>
+                    <url>http://47.112.162.203:8082/nexus/content/repositories/snapshots/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>datacenter-releases</id>
+                    <name>Nexus Release Snapshot Repository</name>
+                    <url>http://47.112.162.203:8082/repository/maven-releases/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+</settings>

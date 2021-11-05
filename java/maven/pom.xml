@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <!-- 模型版本 -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父项目全球标识符、构建标识符、版本 -->
+	<parent>
+		<groupId>com.xuxueli</groupId>
+		<artifactId>xxl-job</artifactId>
+		<version>2.2.0</version>
+	</parent>
+    
+    <!-- 项目构建标识符 -->
+    <artifactId>job-admin</artifactId>
+
+    <!-- 项目产生的构件类型(可选) -->
+    <packaging> jar </packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+  	<dependencies>
+		<dependency>
+			<groupId>com.xuxueli</groupId>
+			<artifactId>xxl-job-core</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+	</dependencies>
+
+    <!-- 环境配置项 -->
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <profile.active>local</profile.active>
+            </properties>
+            <!-- 默认使用 -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profile.active>prod</profile.active>
+            </properties>
+        </profile>
+	</profiles>
+
+    <build>
+        <resources>
+            <!--排除配置文件-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--先排除所有的配置文件-->
+                <excludes>
+                    <!--使用通配符，当然可以定义多个exclude标签进行排除-->
+                    <exclude>application*.yml</exclude>
+                </excludes>
+            </resource>
+            <!--根据激活条件引入打包所需的配置和文件-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--引入所需环境的配置文件-->
+                <filtering>true</filtering>
+                <includes>
+                    <include>application.yml</include>
+                    <!--根据maven选择环境导入配置文件-->
+                    <include>application-${profile.active}.yml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>
