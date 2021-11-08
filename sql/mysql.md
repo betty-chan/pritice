@@ -96,6 +96,8 @@ on pli.id =  (
     limit 1
 )
 WHERE crowd.shop_type = 'S'
+-- COUNT使用：1.COUNT(`event`) 2.COUNT(DISTINCT event)去重 3.COUNT(IF(event='webClick',1, NULL)) 等于某个值 4.COUNT(*)表中行数
+SELECT COUNT(`event`) as pv , COUNT(DISTINCT event) as uv , currency_page FROM `data_event` WHERE event="pageView" GROUP BY currency_page
 -- 查询不并列连续排名：row_number() over(partition by shop_name,country order by sum(combination_usd) desc)
 -- 查询并列不连续排名：rank() over(partition by shop_name,country order by sum(combination_usd) desc)
 -- 查询并列连续排名（默认）：dense_rank() over(partition by shop_name,country order by sum(combination_usd) desc)
