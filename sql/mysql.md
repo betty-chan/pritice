@@ -55,10 +55,12 @@ kill 82547;
 
 ## 查询
 ```sql
---查询日期，写法一
+--查询日期
 select * from dws_adorawe_spu_daily T where T.track_date between '2021-03-21 00:00:00' and '2021-03-28 23:59:59';
---查询日期，写法二
 select * from dws_adorawe_spu_daily T where T.track_date >= '2021-03-21 00:00:00' and T.track_date <= '2021-03-28 23:59:59';
+--查询七天前
+SELECT If(count(*)>0,"异常","正常") as `status`, opdate as date FROM `ads_usr_sensor_order_monitoring_di`
+WHERE shop_name REGEXP "adorawe|soulmia" and opdate >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) GROUP BY date
 --按周分组，返回周一
 select 
   vendor as name, IFNULL(roi,0) as y,
@@ -77,8 +79,6 @@ select
 group by name, x
 --使用正则
 select * from `rule` WHERE user_name REGEXP '[a-z]+';
---查询数据量
-select count(*) as sum from `rule`;
 --查询去重
 select DISTINCT user_name from `rule` WHERE user_name REGEXP '[a-z]+';
 --IN和NO IN的使用
@@ -96,8 +96,35 @@ on pli.id =  (
     limit 1
 )
 WHERE crowd.shop_type = 'S'
--- COUNT使用：1.COUNT(`event`) 2.COUNT(DISTINCT event)去重 3.COUNT(IF(event='webClick',1, NULL)) 等于某个值 4.COUNT(*)表中行数
+-- COUNT使用：1.COUNT(`event`) 2.COUNT(DISTINCT event)去重 3.COUNT和IF、CASE使用，如COUNT(IF(event='webClick',1, NULL)) 等于某个值 4.COUNT(*)表中行数
 SELECT COUNT(`event`) as pv , COUNT(DISTINCT event) as uv , currency_page FROM `data_event` WHERE event="pageView" GROUP BY currency_page
+select count(*) as sum from `rule`;
+```
+### 流程控制
+```sql
+-- IF使用，IF(expr,result_true,result_false)
+-- IFNULL(expression, alt_value)
+-- NOT ISNULL(expression)
+
+-- CASE使用:简单函数
+SELECT *,
+(CASE sex  # 注意此处 sex
+            WHEN '1' THEN '男'
+            WHEN '0' THEN '女'
+            ELSE '保密'
+END)
+FROM USER
+-- CASE使用:搜索函数
+SELECT OrderID, Quantity,
+(CASE
+    WHEN Quantity = 30 THEN "The quantity is 30"
+    ELSE "The quantity is under 30"
+END)
+FROM OrderDetails;
+```
+
+### 排序
+```sql
 -- 查询不并列连续排名：row_number() over(partition by shop_name,country order by sum(combination_usd) desc)
 -- 查询并列不连续排名：rank() over(partition by shop_name,country order by sum(combination_usd) desc)
 -- 查询并列连续排名（默认）：dense_rank() over(partition by shop_name,country order by sum(combination_usd) desc)
