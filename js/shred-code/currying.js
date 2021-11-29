@@ -1,18 +1,20 @@
-function curryingAdd() {
-    //定义数组存储所有的参数
-    var args = Array.prototype.slice.call(arguments);
-    //利用闭包特性保存所有的参数
-    var adder = function () {
-        args.push(...arguments);
-        return adder;
-    }
-    //利用toString隐形转化的特性，执行是转化并计算最终结果
-    adder.toString = function () {
-        return args.reduce((a, b) => {
-            return a + b;
-        })
-    }
-    return adder;
+function curry(f) { // curry(f) 执行柯里化转换
+    return function (a) {
+        return function (b) {
+            return f(a, b);
+        };
+    };
 }
 
-console.log(curryingAdd(1)(2)(3).toString())
+function curry(func) {
+    return function curried(...args) {
+        if (args.length >= func.length) {
+            return func.apply(this, args);
+        } else {
+            return function (...args2) {
+                return curried.apply(this, args.concat(args2));
+            }
+        }
+    };
+
+}
