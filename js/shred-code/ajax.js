@@ -1,13 +1,13 @@
-const ajax = function(){
+const ajax = function () {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "https://ipinfo.io", true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     xhr.onload = function (e) {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-            console.log(xhr.responseText);
+                console.log(xhr.responseText);
             } else {
-            console.error(xhr.statusText);
+                console.error(xhr.statusText);
             }
         }
     };
@@ -16,9 +16,9 @@ const ajax = function(){
     };
     xhr.send(null);
 }
-const axios = function(url) {
-    const promise = new Promise(function(resolve, reject){
-        const handler = function() {
+const axios = function (url) {
+    const promise = new Promise(function (resolve, reject) {
+        const handler = function () {
             if (this.readyState !== 4) {
                 return;
             }

@@ -21,6 +21,8 @@ kill -9 1089
 ```shell
 #查看内网ip
 ifconfig -a
+#查看网关ip,其中网关标识G
+route -n 
 ```
 
 ## 其他
