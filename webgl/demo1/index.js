@@ -19,7 +19,7 @@ function init() {
         new THREE.MeshStandardMaterial(),
         new THREE.MeshStandardMaterial()
     ];
-    var faceMaterial = new THREE.MeshFaceMaterial( materials );
+    var faceMaterial = new THREE.MeshFaceMaterial(materials);
     mesh = new THREE.Mesh(geometry, faceMaterial);
     scene.add(mesh);
     light = new THREE.AmbientLight(0xffffff);
@@ -27,7 +27,7 @@ function init() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setAnimationLoop(animation);
-    
+
     document.body.appendChild(renderer.domElement);
     hoverFace(renderer.domElement);
     initDragControls();
@@ -42,16 +42,16 @@ function initDragControls() {
         }
     }
     var dragControls = new THREE.DragControls(objects, camera, renderer.domElement);
-    // dragControls.addEventListener('hoveron', function (event) {
-    //     transformControls.attach(event.object);
-    // });
+    dragControls.addEventListener('hoveron', function (event) {
+        transformControls.attach(event.object);
+    });
     dragControls.addEventListener('dragstart', function (event) {
-        event.object.material.forEach((item)=>{
+        event.object.material.forEach((item) => {
             item.emissive.set(0xaaaaaa);
         })
     });
     dragControls.addEventListener('dragend', function (event) {
-        event.object.material.forEach((item)=>{
+        event.object.material.forEach((item) => {
             item.emissive.set(0x000000);
         })
     });
@@ -69,19 +69,19 @@ function mouseenterFun(event) {
     let raycaster = new THREE.Raycaster();
     let mouse = new THREE.Vector2();
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = 1-(event.clientY / window.innerHeight) * 2;
+    mouse.y = 1 - (event.clientY / window.innerHeight) * 2;
     raycaster.setFromCamera(mouse, camera);
     intersects = raycaster.intersectObjects(scene.children);
     //将所有的相交的模型的颜色设置为红色
     for (var i = 0; i < intersects.length; i++) {
         let materialIndex = intersects[i].face.materialIndex;
         intersects[i].object.material[materialIndex].color.set(0xff0000);
-        mesh.material.forEach((item,key)=>{
-            item.color.set(key==materialIndex?0xff0000:0xffffff);
+        mesh.material.forEach((item, key) => {
+            item.color.set(key == materialIndex ? 0xff0000 : 0xffffff);
         })
     }
-    if(!intersects ||!intersects.length){
-        mesh.material.forEach((item)=>{
+    if (!intersects || !intersects.length) {
+        mesh.material.forEach((item) => {
             item.color.set(0xffffff);
         })
     }
