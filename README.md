@@ -5,6 +5,8 @@
 ```
 java //java相关练习
 js //js相关练习
+- shred-code： 手撕代码
+- algorithm：算法
 webgl //webgl相关练习
 sql //数据库相关练习
 os //操作系统相关练习
