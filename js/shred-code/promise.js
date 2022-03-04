@@ -1,3 +1,7 @@
+/**
+ * 三个对象：promise、then、resolutionProcedure
+ */
+
 // 三种状态
 const PENDING = "pending";
 const RESOLVED = "resolved";
