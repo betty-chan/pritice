@@ -27,6 +27,12 @@ for (Map.Entry<String,Integer> entry : data.entrySet()){
     System.out.println("key:"+entry.getKey()+";value:"+entry.getValue());
 }
 ```
+> enum遍历
+```java
+for(EstimateType enumConstant : enumConstants) {
+     System.out.println(enumConstant);
+}
+```
 > list遍历
 ```java
 List<String> arrayList = new ArrayList<>();

@@ -10,3 +10,18 @@ public <E> List<BaseComponentPO> getList(BaseRepository baseRepository, Class<E>
     return componentList;
 }
 ```
+
+> 静态赋值
+```java
+// 初始化器
+List<ComponentType> components = new ArrayList<>(){{
+    add(ComponentType.slab);
+}};
+```
+
+> String indexOf 正则
+```java
+if(ReUtil.getGroup0(",|~", b.getBoundLayer()) != null) {
+    return 1;
+}
+``` 

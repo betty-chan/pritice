@@ -4,3 +4,5 @@
 
 // List<子类>转化成List<父类>
 ```
+
+> JSONObject转成Map
