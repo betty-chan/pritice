@@ -36,5 +36,9 @@ public enum EstimateType implements BaseEnum{
     public static EstimateType[] getAll() {
         EstimateType[] enumConstants = EstimateType.class.getEnumConstants();
     }
+
+    public static DrawingSheetViewType match(Integer v) {
+        return Stream.of(values()).parallel().filter(item -> item.getV() == v).findAny().orElse(null);
+    }
 }
 ```

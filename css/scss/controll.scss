@@ -1,0 +1,13 @@
+@for $i from 12 through 30 {
+    [fz-#{$i}] {
+        font-size: #{$i}px;
+    }
+}
+
+$types: 12;
+@while $types <=36 {
+    .fz-#{$types} {
+        font-size: #{$types}px;
+    }
+    $types: $types + 2;
+}

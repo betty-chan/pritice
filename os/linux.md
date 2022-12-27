@@ -1,6 +1,6 @@
 ## 文件操作
 ```shell
-#删除文件夹
+#删除文件夹或者文件
 rm -rf spiderCMS_frontend
 ##移动目录
 mv webpack /home/xiongqiao

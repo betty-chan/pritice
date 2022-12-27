@@ -1,0 +1,23 @@
+function encodeQuery(obj) {
+  let keys = Object.keys(obj);
+  let textList = [];
+  keys.forEach(key => {
+    if (obj[key] != null) {
+      textList.push(`${key}=${encodeURIComponent(obj[key])}`)
+    }
+  })
+  return textList.join('&');
+}
+
+function decodeQuery(url) {
+  let str = url.split('?')[1];
+  let result = {}
+  if(str) {
+    const textList = str.split('&');
+    textList.forEach(item => {
+      let arr = item.split('=');
+      result[arr[0]] = arr[1];
+    })
+  }
+  return result;
+}
