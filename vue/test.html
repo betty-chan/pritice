@@ -2,23 +2,23 @@
 <header></header>
 
 <body>
-    <div id="test"></div>
-    <script src="./test.js"></script>
-    <script type="text/javascript">
-        //验证一下
-        var obj = {
-            a: 1,
-            b: 2,
-            c: 3
-        }
-        Object.keys(obj).forEach(function (key) {
-            new Observer(obj, key, obj[key])
-        });
-        new Watcher(function () {
-            document.querySelector("#test").innerHTML = obj.a;
-        })
-        //请在控制台输入obj.a = 22，看看效果
-    </script>
+  <div id="test"></div>
+  <script src="./test.js"></script>
+  <script type="text/javascript">
+    //验证一下
+    var obj = {
+      a: 1,
+      b: 2,
+      c: 3
+    }
+    Object.keys(obj).forEach(function (key) {
+      new Observer(obj, key, obj[key])
+    });
+    new Watcher(function () {
+      document.querySelector("#test").innerHTML = obj.a;
+    })
+    //请在控制台输入obj.a = 22，看看效果
+  </script>
 </body>
 
 </html>

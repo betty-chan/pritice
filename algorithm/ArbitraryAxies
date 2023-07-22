@@ -1,0 +1,41 @@
+/**
+ * AutoCAD风格的任意轴计算
+ * @param {Array<number>} normal - 目标平面的法向量 [x, y, z]
+ * @returns {Object} - 包含新坐标系的X轴和Y轴
+ */
+function getArbitraryAxes(normal: Vector3) {
+  // 1. 首先归一化法向量（将作为新的Z轴）
+  const zAxis = normal.clone().normalize();
+
+  // 2. 计算X轴
+  let xAxis = getArbitraryXAxis(z);
+
+  // 3. 计算Y轴（Z叉乘X得到Y）
+  const yAxis = zAxis.clone().cross(xAxis);
+
+  return {
+    xAxis,
+    yAxis,
+    zAxis
+  };
+}
+
+/**
+ * 求任意xAxis
+ * AutoCAD的算法：如果法向量最接近世界Z轴，则用世界Y轴叉乘；否则用世界Z轴叉乘
+ * zAxis必须是单位向量
+ * @param zAxis
+ * @returns
+ */
+export function getArbitraryXAxis(zAxis: Vector3, epsilon = 1 / 64) {
+  const xAxis = new Vector3();
+  if (Math.abs(zAxis.x) < epsilon && Math.abs(zAxis.y) < epsilon) {
+    // 如果法向量接近世界Z轴，使用世界Y轴[0,1,0]叉乘zAxis
+    xAxis.set(zAxis.z, 0, -zAxis.x);
+  } else {
+    // 否则使用世界Z轴[0,0,1]叉乘 zAxis
+    xAxis.set(-zAxis.y, zAxis.x, 0);
+  }
+  xAxis.normalize();
+  return xAxis;
+}

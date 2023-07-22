@@ -18,25 +18,27 @@ static BaseEntity  getClass(Map<String, Object> data) {
 import com.google.common.collect.Lists;
 import cn.hutool.json.JSONUtil;
 import java.util.List;
+import cn.hutool.core.util.ObjectUtil;
 
 // 写法1
 public class Utils {
-    public static <T> List<T> deepCopy(List<T> src, Class<T> entityClass) {
-        List<T> newList = Lists.newArrayList();
+    public static <T> List<T> deepCopy(List<T> src) {
+        List<T> newData = Lists.newArrayList();
         for (T t: src) {
             String jsonObject = JSONUtil.toJsonStr(t);
-            T obj = JSONUtil.toBean(jsonObject, entityClass);
-            newList.add(obj);
+            T obj = JSONUtil.toBean(jsonObject, src.class);
+            newData.add(obj);
         }
-        return newList;
+        return newData;
     }
-}
-// 写法2
-public class Utils {
+
     public static <T> List<T> deepCopy(List<T> src) {
         String jsonObject = JSONUtil.toJsonStr(src);
-        List<T> newList = (List<T>) JSONUtil.parseArray(jsonObject);
-        return newList;
+        List<T> newData = (List<T>) JSONUtil.parseArray(jsonObject);
+        return newData;
     }
 }
+
+// 写法2
+ObjectUtil.clone();
 ```
