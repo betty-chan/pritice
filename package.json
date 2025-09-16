@@ -1,0 +1,23 @@
+{
+  "name": "pritice",
+  "version": "1.0.0",
+  "description": "该项目为一些零碎的练习记录",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/betty-chan/pritice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/betty-chan/pritice/issues"
+  },
+  "homepage": "https://github.com/betty-chan/pritice#readme",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0"
+  }
+}
